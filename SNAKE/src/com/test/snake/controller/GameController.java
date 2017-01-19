@@ -49,7 +49,7 @@ public class GameController extends AnimationTimer {
 
 		snakeHead = new Position(canvas.getWidth()/2,canvas.getHeight()/2);	
 
-		snake = new Snake(3, canvas, snakeHead);
+		snake = new Snake(13, canvas, snakeHead);
 
 		start();
 		
@@ -124,7 +124,7 @@ public class GameController extends AnimationTimer {
 						
 						snake.getBody().get(0).setCoordX(0);
 						
-					} else if (snake.getBody().get(0).getCoordY() <= 0) {
+					} else if (snake.getBody().get(0).getCoordY() < 0) {
 						
 						snake.getBody().get(0).setCoordY(canvas.getHeight() - 15);
 						
@@ -135,7 +135,7 @@ public class GameController extends AnimationTimer {
 					}
 					
 
-					//Verifys is the snakes collides with it self
+					//Verifies if snake is colliding with it self
 					for (int i = 1; i < snake.getBody().size(); i++) {
 
 						if (snake.getBody().get(i).getCoordX() == snake.getBody().get(0).getCoordX() &&
