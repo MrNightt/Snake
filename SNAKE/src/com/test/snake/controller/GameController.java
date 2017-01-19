@@ -57,6 +57,11 @@ public class GameController extends AnimationTimer {
 
 	}
 
+	/**Changes snakes body positions
+	 * 
+	 * 
+	 * @param speed
+	 */
 	public void snakeMove(int speed) {
 
 		time.getKeyFrames().add(new KeyFrame(Duration.millis(speed),
@@ -108,6 +113,27 @@ public class GameController extends AnimationTimer {
 						break;
 
 					}			
+					
+					
+					//Transfers snakes head to the opposite border of the border that the snakes head collides
+					if (snake.getBody().get(0).getCoordX() < 0) {
+						
+						snake.getBody().get(0).setCoordX(canvas.getWidth()- 15);
+						
+					} else if (snake.getBody().get(0).getCoordX() >= canvas.getWidth()) {
+						
+						snake.getBody().get(0).setCoordX(0);
+						
+					} else if (snake.getBody().get(0).getCoordY() <= 0) {
+						
+						snake.getBody().get(0).setCoordY(canvas.getHeight() - 15);
+						
+					} else if (snake.getBody().get(0).getCoordY() >= canvas.getHeight()) {
+						
+						snake.getBody().get(0).setCoordY(0);
+						
+					}
+					
 
 					//Verifys is the snakes collides with it self
 					for (int i = 1; i < snake.getBody().size(); i++) {
