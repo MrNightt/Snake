@@ -38,17 +38,18 @@ public class Main extends Application {
 			primaryStage.show();
 			stage = primaryStage;
 			
+			//Receives user commands to control snakes direction
 			scene.setOnKeyPressed(event -> {
-				if (event.getCode() == KeyCode.W)
+				if (event.getCode() == KeyCode.W && GameController.snake.getDirection() != "s")
 					GameController.snake.setDirection("w");
 				
-				if (event.getCode() == KeyCode.S)
+				if (event.getCode() == KeyCode.S && GameController.snake.getDirection() != "w")
 					GameController.snake.setDirection("s");
 
-				if (event.getCode() == KeyCode.A)
+				if (event.getCode() == KeyCode.A  && GameController.snake.getDirection() != "d")
 					GameController.snake.setDirection("a");
 
-				if (event.getCode() == KeyCode.D)
+				if (event.getCode() == KeyCode.D  && GameController.snake.getDirection() != "a")
 					GameController.snake.setDirection("d");
 			});
 			
