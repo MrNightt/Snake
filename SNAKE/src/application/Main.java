@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
@@ -30,9 +32,8 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("../com/test/snake/views/Snake.fxml"));
 			loaderMenu.setLocation(Main.class.getResource("../com/test/snake/views/Menu.fxml"));
 
-			scene = new Scene(loader.load());
+			scene = new Scene(loader.load(),600,480);
 			sceneMenu = new Scene(loaderMenu.load());
-
 			
 			primaryStage.setScene(sceneMenu);
 			primaryStage.show();

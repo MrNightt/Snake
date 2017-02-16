@@ -2,6 +2,8 @@ package com.test.snake.controller;
 
 import java.util.Random;
 
+import javax.swing.GroupLayout.Alignment;
+
 import application.Food;
 import application.Main;
 import application.Position;
@@ -13,16 +15,23 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class GameController extends AnimationTimer {
 
 	@FXML
 	public Canvas canvas;
+	
+	@FXML
+	public Canvas score;
 
 	public static int speed;
 
@@ -31,6 +40,8 @@ public class GameController extends AnimationTimer {
 	private Position snakeHead;
 
 	private static GraphicsContext gc;
+	
+	private static GraphicsContext sgc;
 
 	public static Timeline time;
 
@@ -46,10 +57,15 @@ public class GameController extends AnimationTimer {
 		time.setCycleCount(Timeline.INDEFINITE);
 
 		gc = canvas.getGraphicsContext2D();
+		
+		sgc = score.getGraphicsContext2D();
 
-		snakeHead = new Position(canvas.getWidth()/2,canvas.getHeight()/2);	
+		Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, 18 );
+		sgc.setFont(theFont);
+		
+		snakeHead = new Position(canvas.getWidth()/2 , canvas.getHeight()/2);	
 
-		snake = new Snake(13, canvas, snakeHead);
+		snake = new Snake(3, canvas, snakeHead);
 
 		start();
 		
@@ -218,6 +234,13 @@ public class GameController extends AnimationTimer {
 		gc.fillRect(food.getCoordX() , food.getCoordY(), 10, 10);
 
 	}
+	
+	public void drawScore() {
+		sgc.setFill(Color.WHITE);
+		sgc.setTextBaseline(VPos.CENTER);
+		sgc.setTextAlign(TextAlignment.CENTER);
+		sgc.fillText("Score: "+snake.getBody().size(), (score.getWidth()/2), score.getHeight()/2);
+	}
 
 	/**Draws canvas background
 	 * 
@@ -225,6 +248,12 @@ public class GameController extends AnimationTimer {
 	public void drawBG() {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.setStroke(Color.WHITE);
+		gc.strokeLine(0, canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
+		sgc.setFill(Color.BLACK);
+		sgc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		
 	}
 
 	/**Updates the canvas 60 times per second 
@@ -237,6 +266,7 @@ public class GameController extends AnimationTimer {
 		drawSnake();
 		drawFood(food);
 		drawFood(food1);
+		drawScore();
 
 		if (snake.getBody().size() == 5 && speed == 250) {
 
