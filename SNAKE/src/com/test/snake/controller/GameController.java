@@ -2,23 +2,17 @@ package com.test.snake.controller;
 
 import java.util.Random;
 
-import javax.swing.GroupLayout.Alignment;
-
 import application.Food;
 import application.Main;
 import application.Position;
 import application.Snake;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -29,7 +23,7 @@ public class GameController extends AnimationTimer {
 
 	@FXML
 	public Canvas canvas;
-	
+
 	@FXML
 	public Canvas score;
 
@@ -40,16 +34,20 @@ public class GameController extends AnimationTimer {
 	private Position snakeHead;
 
 	private static GraphicsContext gc;
-	
+
 	private static GraphicsContext sgc;
 
 	public static Timeline time;
+	
+	Color random;
 
-	public Food food = new Food(0,0);
-	public Food food1 = new Food(0,0);
+	public Food food = new Food(0, 0);
+	public Food food1 = new Food(0, 0);
 
 	@FXML
 	public void initialize() {
+		
+		random = Color.WHITE;
 
 		speed = 250;
 
@@ -57,112 +55,111 @@ public class GameController extends AnimationTimer {
 		time.setCycleCount(Timeline.INDEFINITE);
 
 		gc = canvas.getGraphicsContext2D();
-		
+
 		sgc = score.getGraphicsContext2D();
 
-		Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, 18 );
+		Font theFont = Font.font("Times New Roman", FontWeight.BOLD, 18);
 		sgc.setFont(theFont);
-		
-		snakeHead = new Position(canvas.getWidth()/2 , canvas.getHeight()/2);	
+
+		snakeHead = new Position(canvas.getWidth() / 2, canvas.getHeight() / 2);
 
 		snake = new Snake(3, canvas, snakeHead);
 
 		start();
-		
+
 		snakeMove(speed);
 
 	}
 
-	/**Changes snakes body positions
+	/**
+	 * Changes snakes body positions
 	 * 
 	 * 
 	 * @param speed
 	 */
 	public void snakeMove(int speed) {
 
-		time.getKeyFrames().add(new KeyFrame(Duration.millis(speed),
-				(event)-> {
+		time.getKeyFrames().add(new KeyFrame(Duration.millis(speed), (event) -> {
 
-					switch (snake.getDirection()) {
+			switch (snake.getDirection()) {
 
-					case "w":
+			case "w":
 
-						for (int i = snake.getBody().size()-1; i > 0; i--) {
-							snake.getBody().get(i).setCoordY(snake.getBody().get(i-1).getCoordY());
-							snake.getBody().get(i).setCoordX(snake.getBody().get(i-1).getCoordX());
-						}
+				for (int i = snake.getBody().size() - 1; i > 0; i--) {
+					snake.getBody().get(i).setCoordY(snake.getBody().get(i - 1).getCoordY());
+					snake.getBody().get(i).setCoordX(snake.getBody().get(i - 1).getCoordX());
+				}
 
-						//Changes the position of snake head
-						snake.getBody().get(0).setCoordY(snake.getBody().get(0).getCoordY()-15);
-						break;
+				// Changes the position of snake head
+				snake.getBody().get(0).setCoordY(snake.getBody().get(0).getCoordY() - 15);
+				break;
 
-					case "s":
-						for (int i = snake.getBody().size()-1; i > 0; i--) {
-							snake.getBody().get(i).setCoordY(snake.getBody().get(i-1).getCoordY());
-							snake.getBody().get(i).setCoordX(snake.getBody().get(i-1).getCoordX());
-						}
+			case "s":
+				for (int i = snake.getBody().size() - 1; i > 0; i--) {
+					snake.getBody().get(i).setCoordY(snake.getBody().get(i - 1).getCoordY());
+					snake.getBody().get(i).setCoordX(snake.getBody().get(i - 1).getCoordX());
+				}
 
-						//Changes the position of snake head
-						snake.getBody().get(0).setCoordY(snake.getBody().get(0).getCoordY()+15);
-						break;
+				// Changes the position of snake head
+				snake.getBody().get(0).setCoordY(snake.getBody().get(0).getCoordY() + 15);
+				break;
 
-					case "a":
+			case "a":
 
-						for (int i = snake.getBody().size()-1; i > 0; i--) {
-							snake.getBody().get(i).setCoordY(snake.getBody().get(i-1).getCoordY());
-							snake.getBody().get(i).setCoordX(snake.getBody().get(i-1).getCoordX());
-						}
+				for (int i = snake.getBody().size() - 1; i > 0; i--) {
+					snake.getBody().get(i).setCoordY(snake.getBody().get(i - 1).getCoordY());
+					snake.getBody().get(i).setCoordX(snake.getBody().get(i - 1).getCoordX());
+				}
 
-						//Changes the position of snake head
-						snake.getBody().get(0).setCoordX(snake.getBody().get(0).getCoordX()-15);
-						break;
+				// Changes the position of snake head
+				snake.getBody().get(0).setCoordX(snake.getBody().get(0).getCoordX() - 15);
+				break;
 
-					case "d":
+			case "d":
 
-						for (int i = snake.getBody().size()-1; i > 0; i--) {
-							snake.getBody().get(i).setCoordY(snake.getBody().get(i-1).getCoordY());
-							snake.getBody().get(i).setCoordX(snake.getBody().get(i-1).getCoordX());
-						}
+				for (int i = snake.getBody().size() - 1; i > 0; i--) {
+					snake.getBody().get(i).setCoordY(snake.getBody().get(i - 1).getCoordY());
+					snake.getBody().get(i).setCoordX(snake.getBody().get(i - 1).getCoordX());
+				}
 
-						//Changes the position of snake head
-						snake.getBody().get(0).setCoordX(snake.getBody().get(0).getCoordX()+15);
-						break;
+				// Changes the position of snake head
+				snake.getBody().get(0).setCoordX(snake.getBody().get(0).getCoordX() + 15);
+				break;
 
-					}			
-					
-					
-					//Transfers snakes head to the opposite border of the border that the snakes head collides
-					if (snake.getBody().get(0).getCoordX() < 0) {
-						
-						snake.getBody().get(0).setCoordX(canvas.getWidth()- 15);
-						
-					} else if (snake.getBody().get(0).getCoordX() >= canvas.getWidth()) {
-						
-						snake.getBody().get(0).setCoordX(0);
-						
-					} else if (snake.getBody().get(0).getCoordY() < 0) {
-						
-						snake.getBody().get(0).setCoordY(canvas.getHeight() - 15);
-						
-					} else if (snake.getBody().get(0).getCoordY() >= canvas.getHeight()) {
-						
-						snake.getBody().get(0).setCoordY(0);
-						
-					}
-					
+			}
 
-					//Verifies if snake is colliding with it self
-					for (int i = 1; i < snake.getBody().size(); i++) {
+			// Transfers snakes head to the opposite border of the border that
+			// the snakes head collides
+			if (snake.getBody().get(0).getCoordX() < 0) {
 
-						if (snake.getBody().get(i).getCoordX() == snake.getBody().get(0).getCoordX() &&
-								snake.getBody().get(i).getCoordY() == snake.getBody().get(0).getCoordY()) {
-							time.stop();
-							initialize();
-							Main.changeScene();
-						}
-					}
+				snake.getBody().get(0).setCoordX(canvas.getWidth() - 15);
 
-				}));
+			} else if (snake.getBody().get(0).getCoordX() >= canvas.getWidth()) {
+
+				snake.getBody().get(0).setCoordX(0);
+
+			} else if (snake.getBody().get(0).getCoordY() < 0) {
+
+				snake.getBody().get(0).setCoordY(canvas.getHeight() - 15);
+
+			} else if (snake.getBody().get(0).getCoordY() >= canvas.getHeight()) {
+
+				snake.getBody().get(0).setCoordY(0);
+
+			}
+
+			// Verifies if snake is colliding with it self
+			for (int i = 1; i < snake.getBody().size(); i++) {
+
+				if (snake.getBody().get(i).getCoordX() == snake.getBody().get(0).getCoordX()
+						&& snake.getBody().get(i).getCoordY() == snake.getBody().get(0).getCoordY()) {
+					time.stop();
+					initialize();
+					Main.changeScene();
+				}
+			}
+
+		}));
 	}
 
 	/**
@@ -170,7 +167,7 @@ public class GameController extends AnimationTimer {
 	 */
 	public void drawSnake() {
 
-		gc.setFill(Color.WHITE);
+		gc.setFill(random);
 
 		for (Position pos : snake.getBody()) {
 
@@ -179,7 +176,7 @@ public class GameController extends AnimationTimer {
 		}
 
 	}
-	
+
 	/**
 	 * Visual representation of the food
 	 */
@@ -187,62 +184,64 @@ public class GameController extends AnimationTimer {
 
 		gc.setFill(Color.WHITE);
 
-		//Generates a new position for the food inside the canvas
+		// Generates a new position for the food inside the canvas
 		if (food.isEated()) {
 
 			food.setCoordX(new Random().nextInt(600));
 			food.setCoordY(new Random().nextInt(450));
 
-			while ( food.getCoordX() % 15 != 0 ) {
+			while (food.getCoordX() % 15 != 0) {
 
 				if (food.getCoordX() < 585) {
 
-					food.setCoordX( food.getCoordX()+1 );
+					food.setCoordX(food.getCoordX() + 1);
 
 				} else {
 
-					food.setCoordX( food.getCoordX()-1 );
+					food.setCoordX(food.getCoordX() - 1);
 				}
 
 			}
 
-			while ( food.getCoordY() % 15 != 0) {
+			while (food.getCoordY() % 15 != 0) {
 
 				if (food.getCoordY() < 435) {
 
-					food.setCoordY( food.getCoordY()+1 );
+					food.setCoordY(food.getCoordY() + 1);
 
 				} else {
 
-					food.setCoordY( food.getCoordY()-1 );
+					food.setCoordY(food.getCoordY() - 1);
 				}
 			}
 
 			food.setEated(false);
 		}
 
-		//The food is eaten if the snakes head collides with the food
-		if (snake.getBody().get(0).getCoordX() == food.getCoordX() && 
-				snake.getBody().get(0).getCoordY() == food.getCoordY()) {
+		// The food is eaten if the snakes head collides with the food
+		if (snake.getBody().get(0).getCoordX() == food.getCoordX()
+				&& snake.getBody().get(0).getCoordY() == food.getCoordY()) {
 
-			snake.getBody().add(new Position(snake.getBody().get(snake.getBody().size()-1).getCoordX(),
-					snake.getBody().get(snake.getBody().size()-1).getCoordY()));
+			snake.getBody().add(new Position(snake.getBody().get(snake.getBody().size() - 1).getCoordX(),
+					snake.getBody().get(snake.getBody().size() - 1).getCoordY()));
 
 			food.setEated(true);
+			random = new Color(Math.random(), Math.random(), Math.random(), 1);
 		}
 
-		gc.fillRect(food.getCoordX() , food.getCoordY(), 10, 10);
+		gc.fillRect(food.getCoordX(), food.getCoordY(), 10, 10);
 
 	}
-	
+
 	public void drawScore() {
 		sgc.setFill(Color.WHITE);
 		sgc.setTextBaseline(VPos.CENTER);
 		sgc.setTextAlign(TextAlignment.CENTER);
-		sgc.fillText("Score: "+snake.getBody().size(), (score.getWidth()/2), score.getHeight()/2);
+		sgc.fillText("Score: " + snake.getBody().size(), (score.getWidth() / 2), score.getHeight() / 2);
 	}
 
-	/**Draws canvas background
+	/**
+	 * Draws canvas background
 	 * 
 	 */
 	public void drawBG() {
@@ -252,11 +251,11 @@ public class GameController extends AnimationTimer {
 		gc.strokeLine(0, canvas.getHeight(), canvas.getWidth(), canvas.getHeight());
 		sgc.setFill(Color.BLACK);
 		sgc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
-		
+
 	}
 
-	/**Updates the canvas 60 times per second 
+	/**
+	 * Updates the canvas 60 times per second
 	 * 
 	 */
 	@Override
@@ -270,14 +269,21 @@ public class GameController extends AnimationTimer {
 
 		if (snake.getBody().size() == 5 && speed == 250) {
 
-			speed = 150; time.stop(); time.getKeyFrames().clear(); snakeMove(speed); time.play();
+			speed = 150;
+			time.stop();
+			time.getKeyFrames().clear();
+			snakeMove(speed);
+			time.play();
 
 		}
 
 		if (snake.getBody().size() == 10 && speed == 150) {
 
-			speed = 50; time.stop(); time.getKeyFrames().clear(); snakeMove(speed); time.play();
-
+			speed = 50;
+			time.stop();
+			time.getKeyFrames().clear();
+			snakeMove(speed);
+			time.play();
 
 		}
 
