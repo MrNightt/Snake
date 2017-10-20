@@ -1,5 +1,7 @@
 package com.test.snake.controller;
 
+import java.io.FileNotFoundException;
+
 import application.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,8 +29,9 @@ public class MenuController {
 		
 		gc.setFill(Color.WHITE);
 		
-		gc.fillRect( (canvasMenu.getWidth()/2)-125, (canvasMenu.getHeight()/2)-100, 250, 100);
-		gc.fillRect( (canvasMenu.getWidth()/2)-125, (canvasMenu.getHeight()/2)+50, 250, 100);
+		gc.fillRect( (canvasMenu.getWidth()/2)-125, (canvasMenu.getHeight()/2)-100, 250, 50);
+		gc.fillRect( (canvasMenu.getWidth()/2)-125, (canvasMenu.getHeight()/2), 250, 50);
+		gc.fillRect( (canvasMenu.getWidth()/2)-125, (canvasMenu.getHeight()/2)+100, 250, 50);
 		
 		Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, 48 );
 		
@@ -37,20 +40,28 @@ public class MenuController {
 		gc.setTextBaseline(VPos.CENTER);
 		gc.fillText("Snake Game", (canvasMenu.getWidth()/2), 60);
 		
+		theFont = Font.font( "Times New Roman", FontWeight.BOLD, 28 );
+		gc.setFont(theFont);
+		
 		gc.setFill(Color.BLACK);
-		gc.fillText("Start",canvasMenu.getWidth()/2 , 170);
-		gc.fillText("Exit",canvasMenu.getWidth()/2 , 325);
+		gc.fillText("START",canvasMenu.getWidth()/2 , (canvasMenu.getHeight()/2)-75);
+		gc.fillText("SCOREBOARD",canvasMenu.getWidth()/2 , (canvasMenu.getHeight()/2)+25);
+		gc.fillText("EXIT",canvasMenu.getWidth()/2 ,(canvasMenu.getHeight()/2)+125);
 		
 		canvasMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, 
 			       new EventHandler<MouseEvent>() {
 			           @Override
 			           public void handle(MouseEvent e) {
-			               if (e.getX() > (canvasMenu.getWidth()/2)-125 && e.getX() < (canvasMenu.getWidth()/2)+125 && e.getY() > (canvasMenu.getHeight()/2)-100 && e.getY() < canvasMenu.getHeight()/2) {
-			            	   Main.changeScene();
+			               if (e.getX() > (canvasMenu.getWidth()/2)-125 && e.getX() < (canvasMenu.getWidth()/2)+125 && e.getY() > (canvasMenu.getHeight()/2)-100 && e.getY() < (canvasMenu.getHeight()/2)-50) {
+			            	   Main.changeScene("play");
 			            	   GameController.time.play();
 			               }
 			               
-			               if (e.getX() > (canvasMenu.getWidth()/2)-125 && e.getX() < (canvasMenu.getWidth()/2)+125 && e.getY() > (canvasMenu.getHeight()/2)+50 && e.getY() < (canvasMenu.getHeight()/2)+150) {
+			               if (e.getX() > (canvasMenu.getWidth()/2)-125 && e.getX() < (canvasMenu.getWidth()/2)+125 && e.getY() > (canvasMenu.getHeight()/2) && e.getY() < (canvasMenu.getHeight()/2)+50) {
+			            	   Main.changeScene("scoreboard");
+			               }
+			               
+			               if (e.getX() > (canvasMenu.getWidth()/2)-125 && e.getX() < (canvasMenu.getWidth()/2)+125 && e.getY() > (canvasMenu.getHeight()/2)+100 && e.getY() < (canvasMenu.getHeight()/2)+150) {
 			            	   Main.stage.close();
 			               }
 			           }
